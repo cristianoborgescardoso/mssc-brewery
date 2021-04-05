@@ -17,6 +17,7 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<lombokSource>${project.basedir}/src/main/java/guru/springframework/msscbrewery</lombokSource>
 	</properties>
 
 	<dependencies>
@@ -54,5 +55,36 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+    <profile>
+      <id>dlombok</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-maven-plugin</artifactId>
+            <version>1.18.20.0</version>
+            <executions>
+              <execution>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>delombok</goal>
+                </goals>
+    	          </execution>
+            </executions>
+            <configuration>
+              <sourceDirectory>${lombokSource}</sourceDirectory>
+              <verbose>true</verbose>
+              <formatPreferences>
+                <generateDelombokComment>skip</generateDelombokComment>
+                <javaLangAsFQN>skip</javaLangAsFQN>
+                <suppressWarnings>skip</suppressWarnings>
+              </formatPreferences>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
